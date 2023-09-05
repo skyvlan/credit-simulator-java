@@ -1,8 +1,11 @@
 package org.technicaltest.creditsim.view;
+import org.technicaltest.creditsim.model.domain.entities.LoanOutput;
 import org.technicaltest.creditsim.model.domain.enums.VehicleCondition;
 import org.technicaltest.creditsim.model.domain.enums.VehicleType;
+import org.technicaltest.creditsim.model.domain.entities.LoanOutput;
 
 import java.util.Scanner;
+import java.util.List;
 public class ConsoleView implements BaseView{
 
 
@@ -110,6 +113,19 @@ public class ConsoleView implements BaseView{
         }
     }
 
+
+    public float inputTotalLoan(){
+        float totalLoan = this.inputFloat("Masukkan total pinjaman: ");
+        if (totalLoan >= 1000000000){
+            this.output("Total pinjaman tidak valid");
+            return -1;
+        }
+        else{
+            return totalLoan;
+        }
+    }
+
+
     public float inputDownPayment(){
         float downPayment = this.inputFloat("Masukkan uang muka: ");
         if (downPayment < 0){
@@ -118,6 +134,13 @@ public class ConsoleView implements BaseView{
         }
         else{
             return downPayment;
+        }
+    }
+
+
+    public void outputLoan(List<LoanOutput> loanOutputList){
+        for(LoanOutput loanOutput : loanOutputList){
+            this.output("Tahun " + loanOutput.getYear() + " : Rp. " + loanOutput.getInstallment() + " Suku Bunga : " + loanOutput.getInterest() + "%");
         }
     }
 
