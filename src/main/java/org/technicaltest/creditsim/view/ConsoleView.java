@@ -95,7 +95,7 @@ public class ConsoleView implements BaseView{
     }
 
     public int inputTenor() {
-        this.output("Masukkan Tenor Pinjaman: ")
+        this.output("Masukkan Tenor Pinjaman: ");
         Scanner scanner = new Scanner(System.in);
         if (scanner.hasNextInt()) {
             return scanner.nextInt();
