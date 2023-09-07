@@ -41,7 +41,7 @@ the file should contain following json format to be parsable:
 
 Things that the Python version has and the Java version don't:
 - Unit Testing
-- CI/CD
+
 
 Things that the Java version has and the Python version don't:
 - Better Error Handling
