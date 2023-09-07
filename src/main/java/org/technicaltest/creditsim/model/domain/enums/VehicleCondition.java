@@ -4,7 +4,7 @@ public enum VehicleCondition {
     BARU("baru"),
     BEKAS("bekas");
 
-    private String value;
+    private final String value;
     VehicleCondition(String value){
         this.value = value;
     }

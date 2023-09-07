@@ -17,6 +17,7 @@ public class ConsoleView implements BaseView{
     @Override
     public float inputFloat(String message) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println(message);
         if (scanner.hasNextFloat()) {
             return scanner.nextFloat();
         }
@@ -30,43 +31,55 @@ public class ConsoleView implements BaseView{
     @Override
     public int inputInt(String message) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println(message);
         if (scanner.hasNextInt()) {
             return scanner.nextInt();
         }
         else{
-            System.out.println("Input tidak valid");
             throw new IllegalArgumentException("Input tidak valid");
         }
     }
 
     @Override
     public String inputString(String message) {
+        System.out.println(message);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
 
     public VehicleType inputVehicleType() {
-        this.output("Masukkan jenis kendaraan (mobil|motor): ");
-        Scanner scanner = new Scanner(System.in);
-        String vehicleType = scanner.nextLine().toLowerCase();
-        if(vehicleType.equals("mobil")){
-            return VehicleType.MOBIL;
+        String vehicleType = "";
+        try{
+            vehicleType = this.inputString("Masukkan jenis kendaraan (mobil|motor): ");
         }
-        else if (vehicleType.equals("motor")){
-            return VehicleType.MOTOR;
-        }
-        else{
+        catch (IllegalArgumentException e){
             this.output("Jenis kendaraan tidak valid\n");
+            this.inputVehicleType();
+        }
+
+
+        if (vehicleType.equals("mobil")) {
+            return VehicleType.MOBIL;
+        } else if (vehicleType.equals("motor")) {
+            return VehicleType.MOTOR;
+        } else {
+            this.output("Jenis kendaraan tidak valid\n");
+            this.inputVehicleType();
             return null;
         }
 
     }
 
     public VehicleCondition inputVehicleCondition() {
-        this.output("Masukkan kondisi kendaraan (baru|bekas): ");
-        Scanner scanner = new Scanner(System.in);
-        String vehicleCondition = scanner.nextLine().toLowerCase();
+        String vehicleCondition = "";
+        try{
+             vehicleCondition = this.inputString("Masukkan kondisi kendaraan (baru|bekas): ");
+        }
+        catch (IllegalArgumentException e){
+            this.output("Kondisi kendaraan tidak valid\n");
+            this.inputVehicleCondition();
+        }
         if(vehicleCondition.equals("baru")){
             return VehicleCondition.BARU;
         }
@@ -75,50 +88,67 @@ public class ConsoleView implements BaseView{
         }
         else{
             this.output("Kondisi kendaraan tidak valid\n");
+            this.inputVehicleCondition();
             return null;
         }
 
     }
 
     public int inputVehicleYear() {
-        this.output("Tahun kendaraan: ");
-        Scanner scanner = new Scanner(System.in);
-        if (scanner.hasNextInt()) {
-            return scanner.nextInt();
+        int year = 0;
+        try{
+            year = this.inputInt("Masukkan tahun kendaraan: ");
         }
-        if (scanner.nextInt() < 1000 || scanner.nextInt() > 9999){
-            this.output("Tahun kendaraan tidak valid");
-            return -1;
+        catch (IllegalArgumentException e){
+            this.output("Tahun kendaraan tidak valid\n");
+            this.inputVehicleYear();
+        }
+
+        if (year < 1000 || year > 9999){
+            this.output("Tahun kendaraan tidak valid\n");
+            this.inputVehicleYear();
+            return 0;
         }
         else{
-            this.output("Tahun kendaraan tidak valid");
-            return -1;
+            return year;
         }
 
     }
 
     public int inputTenor() {
-        this.output("Masukkan Tenor Pinjaman: ");
-        Scanner scanner = new Scanner(System.in);
-        if (scanner.hasNextInt()) {
-            return scanner.nextInt();
+        int tenor = 0;
+        try{
+            tenor = this.inputInt("Masukkan tenor: ");
         }
-        if (scanner.nextInt() < 1 || scanner.nextInt() > 6){
-            this.output("Tenor tidak valid");
-            return -1;
+        catch (IllegalArgumentException e){
+            this.output("Tenor tidak valid\n");
+            this.inputTenor();
+        }
+
+        if (tenor < 1 || tenor > 6){
+            this.output("Tenor tidak valid\n");
+            this.inputTenor();
+            return 0;
         }
         else{
-            this.output("Tenor tidak valid");
-            return -1;
+           return tenor;
         }
     }
 
 
     public float inputTotalLoan(){
-        float totalLoan = this.inputFloat("Masukkan total pinjaman: ");
+        float totalLoan = 0;
+        try{
+            totalLoan = this.inputFloat("Masukkan total pinjaman: ");
+        }
+        catch (IllegalArgumentException e){
+            this.output("Total pinjaman tidak valid\n");
+            this.inputTotalLoan();
+        }
         if (totalLoan >= 1000000000){
-            this.output("Total pinjaman tidak valid");
-            return -1;
+            this.output("Total pinjaman tidak valid\n");
+            this.inputTotalLoan();
+            return 0;
         }
         else{
             return totalLoan;
@@ -127,10 +157,19 @@ public class ConsoleView implements BaseView{
 
 
     public float inputDownPayment(){
-        float downPayment = this.inputFloat("Masukkan uang muka: ");
+        float downPayment = 0;
+        try{
+            downPayment = this.inputFloat("Masukkan uang muka: ");
+        }
+        catch (IllegalArgumentException e){
+            this.output("Uang muka tidak valid\n");
+            this.inputDownPayment();
+        }
+
         if (downPayment < 0){
-            this.output("Uang muka tidak valid");
-            return -1;
+            this.output("Uang muka tidak valid\n");
+            this.inputDownPayment();
+            return 0;
         }
         else{
             return downPayment;

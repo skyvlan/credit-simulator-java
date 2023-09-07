@@ -7,7 +7,7 @@ import org.technicaltest.creditsim.model.domain.enums.VehicleCondition;
 import org.technicaltest.creditsim.model.domain.enums.VehicleType;
 
 public class LoanInputService {
-    private LoanUnitOfWork uow;
+    private final LoanUnitOfWork uow;
 
     public LoanInputService(LoanUnitOfWork uow){
         this.uow = uow;

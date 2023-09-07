@@ -4,7 +4,7 @@ public enum VehicleType{
     MOTOR("motor"),
     MOBIL("mobil");
 
-    private String value;
+    private final String value;
     VehicleType(String value){
         this.value = value;
     }

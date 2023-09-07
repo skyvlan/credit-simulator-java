@@ -4,14 +4,15 @@ import org.technicaltest.creditsim.model.adapter.LoanUnitOfWork;
 import org.technicaltest.creditsim.model.domain.entities.Loan;
 import org.technicaltest.creditsim.model.domain.entities.LoanOutput;
 import org.technicaltest.creditsim.model.domain.entities.Vehicle;
+import org.technicaltest.creditsim.model.domain.enums.VehicleType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoanService {
 
-    private Loan loan;
-    private Vehicle vehicle;
+    private final Loan loan;
+    private final Vehicle vehicle;
     private static final float BASE_INTEREST_CAR_RATE = 0.08f;
     private static final float BASE_INTEREST_MOTORCYCLE_RATE = 0.09f;
 
@@ -23,10 +24,10 @@ public class LoanService {
     public List<LoanOutput> calculateLoan(){
         List<LoanOutput> loanOutputList = new ArrayList<>();
         float interestRate = 0f;
-        if (this.vehicle.getVehicleType().toString().equals("mobil")){
+        if (this.vehicle.getVehicleType() == VehicleType.MOBIL){
              interestRate = BASE_INTEREST_CAR_RATE;
         }
-        else{
+        else {
              interestRate = BASE_INTEREST_MOTORCYCLE_RATE;
         }
         float baseLoan = this.loan.getTotal_loan() - this.loan.getDown_payment();
