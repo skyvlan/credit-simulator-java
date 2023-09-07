@@ -7,7 +7,7 @@
 - The project is using MVC architecture and Domain Driven Design.
 - The project is using a CLI interface.
 ## Requirements
-- Java 8
+- Java 8 JDK
 
 
 ## How To Run
